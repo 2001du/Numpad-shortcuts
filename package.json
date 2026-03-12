@@ -1,0 +1,67 @@
+{
+  "name": "numpad-shortcuts",
+  "displayName": "Numpad Shortcuts",
+  "description": "Use numpad keys to run custom commands",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "numpad-shortcuts.num1", "title": "Run Numpad 1 Task" },
+      { "command": "numpad-shortcuts.num2", "title": "Run Numpad 2 Task" },
+      { "command": "numpad-shortcuts.num3", "title": "Run Numpad 3 Task" },
+      { "command": "numpad-shortcuts.num4", "title": "Run Numpad 4 Task" },
+      { "command": "numpad-shortcuts.num5", "title": "Run Numpad 5 Task" },
+      { "command": "numpad-shortcuts.num6", "title": "Run Numpad 6 Task" },
+      { "command": "numpad-shortcuts.num7", "title": "Run Numpad 7 Task" },
+      { "command": "numpad-shortcuts.num8", "title": "Run Numpad 8 Task" },
+      { "command": "numpad-shortcuts.num9", "title": "Run Numpad 9 Task" },
+      { "command": "numpad-shortcuts.num0", "title": "Run Numpad 0 Task" }
+    ],
+    "keybindings": [
+      { "command": "numpad-shortcuts.num1", "key": "numpad1", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num2", "key": "numpad2", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num3", "key": "numpad3", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num4", "key": "numpad4", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num5", "key": "numpad5", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num6", "key": "numpad6", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num7", "key": "numpad7", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num8", "key": "numpad8", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num9", "key": "numpad9", "when": "editorTextFocus || terminalFocus" },
+      { "command": "numpad-shortcuts.num0", "key": "numpad0", "when": "editorTextFocus || terminalFocus" }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Numpad Shortcuts",
+      "properties": {
+        "numpad-shortcuts.num1": { "type": "string", "default": "", "description": "Command to run when Numpad 1 is pressed" },
+        "numpad-shortcuts.num2": { "type": "string", "default": "", "description": "Command to run when Numpad 2 is pressed" },
+        "numpad-shortcuts.num3": { "type": "string", "default": "", "description": "Command to run when Numpad 3 is pressed" },
+        "numpad-shortcuts.num4": { "type": "string", "default": "", "description": "Command to run when Numpad 4 is pressed" },
+        "numpad-shortcuts.num5": { "type": "string", "default": "", "description": "Command to run when Numpad 5 is pressed" },
+        "numpad-shortcuts.num6": { "type": "string", "default": "", "description": "Command to run when Numpad 6 is pressed" },
+        "numpad-shortcuts.num7": { "type": "string", "default": "", "description": "Command to run when Numpad 7 is pressed" },
+        "numpad-shortcuts.num8": { "type": "string", "default": "", "description": "Command to run when Numpad 8 is pressed" },
+        "numpad-shortcuts.num9": { "type": "string", "default": "", "description": "Command to run when Numpad 9 is pressed" },
+        "numpad-shortcuts.num0": { "type": "string", "default": "", "description": "Command to run when Numpad 0 is pressed" }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}
