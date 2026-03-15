@@ -1,0 +1,35 @@
+name: vscode-extension-numpad-shortcuts
+description: Numpad Shortcuts VSCode Extension Development Environment
+
+# 环境配置
+environment:
+  # 使用 Node.js 镜像
+  base_image: node:18-alpine
+
+# 初始化阶段 - 直接调用脚本
+stages:
+  - name: setup-environment
+    description: Setup Node.js environment using setup.sh
+    script: |
+      echo "Running setup script..."
+      chmod +x /workspace/setup.sh
+      /workspace/setup.sh
+
+# 持久化配置
+persistence:
+  # 持久化 node_modules，避免每次重新安装
+  - source: /workspace/node_modules
+    target: /persist/node_modules
+
+  # 持久化编译输出
+  - source: /workspace/out
+    target: /persist/out
+
+  # 持久化 npm 缓存
+  - source: /root/.npm
+    target: /persist/npm-cache
+
+# 环境变量
+environment_vars:
+  - name: NODE_ENV
+    value: development
