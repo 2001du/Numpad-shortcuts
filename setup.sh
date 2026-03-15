@@ -9,11 +9,27 @@ echo "========================================"
 echo "CNB 环境初始化脚本"
 echo "========================================"
 
-# 1. 检查 Node.js 是否已安装
+# 1. 加载 nvm（如果存在）
+if [ -f "/persist/nvm/nvm.sh" ]; then
+    echo "🔄 加载持久化的 nvm..."
+    export NVM_DIR="/persist/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    echo "✅ nvm 已加载"
+fi
+
+# 2. 检查 Node.js 是否已安装
 if ! command -v node &> /dev/null; then
     echo "❌ Node.js 未安装"
-    echo "请确保 CNB 环境已配置 Node.js 基础镜像"
-    exit 1
+    echo "正在尝试安装 Node.js 18..."
+
+    # 如果 nvm 可用，使用 nvm 安装
+    if command -v nvm &> /dev/null; then
+        nvm install 18
+        nvm use 18
+    else
+        echo "请确保 CNB 环境已配置 Node.js 基础镜像"
+        exit 1
+    fi
 fi
 
 echo "✅ Node.js 版本: $(node --version)"

@@ -33,25 +33,29 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad7 = handleNumpad7;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
+const utils_1 = require("../utils");
 /**
- * 插件激活函数
+ * 小键盘7: Git 提交当前文件
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad7() {
+    const filePath = (0, utils_1.getCurrentFilePath)();
+    if (!filePath) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
+    }
+    const fileName = (0, utils_1.getFileName)(filePath);
+    const commitMessage = await vscode.window.showInputBox({
+        prompt: '输入提交信息',
+        placeHolder: 'feat: add new feature'
+    });
+    if (commitMessage && commitMessage.trim() !== '') {
+        const terminal = vscode.window.activeTerminal || vscode.window.createTerminal('Git Commit');
+        terminal.show();
+        terminal.sendText(`git add "${filePath}"`);
+        terminal.sendText(`git commit -m "${commitMessage}"`);
+        vscode.window.showInformationMessage(`文件 "${fileName}" 已提交到 Git`);
     }
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad7.js.map

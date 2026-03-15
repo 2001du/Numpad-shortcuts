@@ -33,25 +33,28 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad2 = handleNumpad2;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
+const utils_1 = require("../utils");
 /**
- * 插件激活函数
+ * 小键盘2: 删除当前文件（带二次确认）
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad2() {
+    const filePath = (0, utils_1.getCurrentFilePath)();
+    if (!filePath) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
+    }
+    const fileName = (0, utils_1.getFileName)(filePath);
+    const selection = await vscode.window.showWarningMessage(`确定要删除文件 "${fileName}" 吗？`, '确定删除', '取消');
+    if (selection === '确定删除') {
+        try {
+            await vscode.workspace.fs.delete(vscode.Uri.file(filePath));
+            vscode.window.showInformationMessage(`文件 "${fileName}" 已删除`);
+        }
+        catch (error) {
+            vscode.window.showErrorMessage(`删除失败: ${error}`);
+        }
     }
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad2.js.map

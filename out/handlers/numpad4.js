@@ -33,25 +33,19 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad4 = handleNumpad4;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
+const utils_1 = require("../utils");
 /**
- * 插件激活函数
+ * 小键盘4: 复制当前文件路径到剪贴板
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad4() {
+    const filePath = (0, utils_1.getCurrentFilePath)();
+    if (!filePath) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
     }
+    await vscode.env.clipboard.writeText(filePath);
+    vscode.window.showInformationMessage(`文件路径已复制: ${filePath}`);
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad4.js.map

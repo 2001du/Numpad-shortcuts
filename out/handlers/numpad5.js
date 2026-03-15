@@ -33,25 +33,28 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad5 = handleNumpad5;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
+const utils_1 = require("../utils");
 /**
- * 插件激活函数
+ * 小键盘5: 打开文件所在文件夹
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad5() {
+    const filePath = (0, utils_1.getCurrentFilePath)();
+    if (!filePath) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
     }
+    const folderPath = (0, utils_1.getFileDir)(filePath);
+    const uri = vscode.Uri.file(folderPath);
+    // 检查文件夹是否已在工作区中
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri);
+    if (workspaceFolder) {
+        await vscode.commands.executeCommand('revealInExplorer', uri);
+    }
+    else {
+        await vscode.commands.executeCommand('vscode.openFolder', uri, { forceNewWindow: false });
+    }
+    vscode.window.showInformationMessage(`已打开文件夹: ${folderPath}`);
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad5.js.map

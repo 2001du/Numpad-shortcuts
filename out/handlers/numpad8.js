@@ -33,25 +33,37 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad8 = handleNumpad8;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
+const utils_1 = require("../utils");
 /**
- * 插件激活函数
+ * 小键盘8: 创建当前文件的副本
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad8() {
+    const filePath = (0, utils_1.getCurrentFilePath)();
+    if (!filePath) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
+    }
+    const fileName = (0, utils_1.getFileName)(filePath);
+    const ext = (0, utils_1.getFileExtension)(filePath);
+    const baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+    const newName = await vscode.window.showInputBox({
+        prompt: '输入副本文件名',
+        value: `${baseName}_copy`,
+        placeHolder: '副本文件名'
+    });
+    if (newName && newName.trim() !== '') {
+        const dirPath = (0, utils_1.getFileDir)(filePath);
+        const newPath = `${dirPath}/${newName}${ext}`;
+        try {
+            const content = await vscode.workspace.fs.readFile(vscode.Uri.file(filePath));
+            await vscode.workspace.fs.writeFile(vscode.Uri.file(newPath), content);
+            vscode.window.showInformationMessage(`文件副本已创建: ${newName}${ext}`);
+        }
+        catch (error) {
+            vscode.window.showErrorMessage(`创建副本失败: ${error}`);
+        }
     }
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad8.js.map

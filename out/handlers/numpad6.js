@@ -33,25 +33,23 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.activate = activate;
-exports.deactivate = deactivate;
+exports.handleNumpad6 = handleNumpad6;
 const vscode = __importStar(require("vscode"));
-const commandExecutor_1 = require("./commandExecutor");
 /**
- * 插件激活函数
+ * 小键盘6: 格式化当前文件
  */
-function activate(context) {
-    console.log('Numpad Shortcuts extension is now active');
-    // 注册小键盘 0-9 的命令
-    for (let i = 0; i <= 9; i++) {
-        const disposable = vscode.commands.registerCommand(`numpad-shortcuts.num${i}`, () => {
-            (0, commandExecutor_1.executeNumpadCommand)(i);
-        });
-        context.subscriptions.push(disposable);
+async function handleNumpad6() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showWarningMessage('没有打开的文件');
+        return;
+    }
+    try {
+        await vscode.commands.executeCommand('editor.action.formatDocument');
+        vscode.window.showInformationMessage('文件已格式化');
+    }
+    catch (error) {
+        vscode.window.showErrorMessage(`格式化失败: ${error}`);
     }
 }
-/**
- * 插件停用函数
- */
-function deactivate() { }
-//# sourceMappingURL=extension.js.map
+//# sourceMappingURL=numpad6.js.map

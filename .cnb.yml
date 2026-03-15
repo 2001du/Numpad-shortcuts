@@ -29,6 +29,14 @@ persistence:
   - source: /root/.npm
     target: /persist/npm-cache
 
+  # 持久化 nvm（如果使用 nvm 安装 Node.js）
+  - source: /root/.nvm
+    target: /persist/nvm
+
+  # 持久化 zsh 配置（包含 nvm 配置）
+  - source: /root/.zshrc
+    target: /persist/zshrc
+
 # 环境变量
 environment_vars:
   - name: NODE_ENV
