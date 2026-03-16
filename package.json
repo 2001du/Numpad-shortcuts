@@ -1,0 +1,181 @@
+{
+  "name": "numpad-shortcuts",
+  "displayName": "Numpad Shortcuts",
+  "description": "Numpad keys with built-in file operations and custom commands",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "numpad-shortcuts.num1",
+        "title": "Run Numpad 1: Run Current File"
+      },
+      {
+        "command": "numpad-shortcuts.num2",
+        "title": "Run Numpad 2: Delete Current File"
+      },
+      {
+        "command": "numpad-shortcuts.num3",
+        "title": "Run Numpad 3: Rename Current File"
+      },
+      {
+        "command": "numpad-shortcuts.num4",
+        "title": "Run Numpad 4: Copy File Path"
+      },
+      {
+        "command": "numpad-shortcuts.num5",
+        "title": "Run Numpad 5: Open File Folder"
+      },
+      {
+        "command": "numpad-shortcuts.num6",
+        "title": "Run Numpad 6: Format File"
+      },
+      {
+        "command": "numpad-shortcuts.num7",
+        "title": "Run Numpad 7: Git Commit File"
+      },
+      {
+        "command": "numpad-shortcuts.num8",
+        "title": "Run Numpad 8: Create File Copy"
+      },
+      {
+        "command": "numpad-shortcuts.num9",
+        "title": "Run Numpad 9: Search in File"
+      },
+      {
+        "command": "numpad-shortcuts.num0",
+        "title": "Run Numpad 0: Show All Functions"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "numpad-shortcuts.num1",
+        "key": "numpad1",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num2",
+        "key": "numpad2",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num3",
+        "key": "numpad3",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num4",
+        "key": "numpad4",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num5",
+        "key": "numpad5",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num6",
+        "key": "numpad6",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num7",
+        "key": "numpad7",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num8",
+        "key": "numpad8",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num9",
+        "key": "numpad9",
+        "when": "editorTextFocus || terminalFocus"
+      },
+      {
+        "command": "numpad-shortcuts.num0",
+        "key": "numpad0",
+        "when": "editorTextFocus || terminalFocus"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Numpad Shortcuts",
+      "properties": {
+        "numpad-shortcuts.num1": {
+          "type": "string",
+          "default": "builtin:run-file",
+          "description": "Command for Numpad 1. Use 'builtin:run-file' for built-in run file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num2": {
+          "type": "string",
+          "default": "builtin:delete-file",
+          "description": "Command for Numpad 2. Use 'builtin:delete-file' for built-in delete file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num3": {
+          "type": "string",
+          "default": "builtin:rename-file",
+          "description": "Command for Numpad 3. Use 'builtin:rename-file' for built-in rename file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num4": {
+          "type": "string",
+          "default": "builtin:copy-path",
+          "description": "Command for Numpad 4. Use 'builtin:copy-path' for built-in copy path feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num5": {
+          "type": "string",
+          "default": "builtin:open-folder",
+          "description": "Command for Numpad 5. Use 'builtin:open-folder' for built-in open folder feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num6": {
+          "type": "string",
+          "default": "builtin:format-file",
+          "description": "Command for Numpad 6. Use 'builtin:format-file' for built-in format file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num7": {
+          "type": "string",
+          "default": "builtin:git-commit",
+          "description": "Command for Numpad 7. Use 'builtin:git-commit' for built-in git commit feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num8": {
+          "type": "string",
+          "default": "builtin:copy-file",
+          "description": "Command for Numpad 8. Use 'builtin:copy-file' for built-in copy file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num9": {
+          "type": "string",
+          "default": "builtin:search-file",
+          "description": "Command for Numpad 9. Use 'builtin:search-file' for built-in search file feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        },
+        "numpad-shortcuts.num0": {
+          "type": "string",
+          "default": "builtin:show-functions",
+          "description": "Command for Numpad 0. Use 'builtin:show-functions' for built-in show functions feature, or specify a custom command. Available variables: ${file}, ${fileName}, ${fileDir}, ${workspace}"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "docker": "^1.0.0"
+  }
+}
