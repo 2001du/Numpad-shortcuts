@@ -1,0 +1,20 @@
+# 持久化配置
+# CNB 会在环境启动时恢复这些目录，在环境关闭时自动保存
+
+[
+  {
+    "source": "/workspace/node_modules",
+    "target": "/persist/node_modules",
+    "description": "项目依赖，避免每次重新安装"
+  },
+  {
+    "source": "/workspace/out",
+    "target": "/persist/out",
+    "description": "TypeScript 编译输出"
+  },
+  {
+    "source": "/root/.npm",
+    "target": "/persist/npm-cache",
+    "description": "npm 缓存，加速依赖安装"
+  }
+]
